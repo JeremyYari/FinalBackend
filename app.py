@@ -104,6 +104,8 @@ resultado_test_schema = ResultadoTestSchema()
 resultados_test_schema = ResultadoTestSchema(many=True)
 
 # Rutas de la API
+
+#"INSERT"
 @app.route('/usuario', methods=['POST'])
 def crear_usuario():
     correo = request.json['correo']
@@ -321,11 +323,13 @@ def actualizar_comentarios(resultado_id):
     db.session.commit()
     return jsonify({'mensaje': 'Comentario actualizado exitosamente'})
 
+#"LISTAR"
 @app.route('/usuarios-tipo1', methods=['GET'])
 def obtener_usuarios_tipo1():
     usuarios = Usuario.query.filter_by(tipo_usuario=1).all()
     return usuarios_schema.jsonify(usuarios)
 
+#"UPDATE"
 @app.route('/usuario/<int:usuario_id>', methods=['PUT'])
 def actualizar_usuario(usuario_id):
     usuario = Usuario.query.get(usuario_id)
@@ -352,6 +356,7 @@ def actualizar_usuario(usuario_id):
     db.session.commit()
     return jsonify(success=True, mensaje='Usuario actualizado exitosamente')
 
+#"DELETE"
 @app.route('/usuario/<int:usuario_id>', methods=['DELETE'])
 def eliminar_usuario(usuario_id):
     usuario = Usuario.query.get(usuario_id)
